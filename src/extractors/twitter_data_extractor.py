@@ -111,10 +111,21 @@ if __name__ == "__main__":
     print("--- Starting Product Marketing Tweet Extraction (DEMO-SAFE) ---")
     df = get_product_marketing_tweets(PRODUCT_SEARCH_TERMS)
     if df is not None and not df.empty:
-        out = "product_marketing_tweets.csv"
+        out = os.path.join("data", "product_marketing_tweets.csv")
         df.to_csv(out, index=False)
         print(f"\nSaved {len(df)} rows to {out}\n")
         print(df.head().to_string(index=False))
+        
+        # --- Integrate with Google Sheets ---
+        try:
+            from src.utils.upload_to_sheets import upload_to_google_sheet
+            print("\nAttempting to upload data to Google Sheets...")
+            upload_to_google_sheet(df, "1gNHWjMghm4kTVbFSgC298LgWOWhgREY2wRRzTq-yHrk", "Twitter_Product_Content")
+            print("✓ Successfully uploaded to Google Sheets")
+        except ImportError:
+            print("\nWarning: src.utils.upload_to_sheets not found. Skipping Google Sheets upload.")
+        except Exception as e:
+            print(f"\nError uploading to Google Sheets: {e}")
     else:
         print("\nNo data saved (empty DataFrame).")
     print("\n--- Extraction (DEMO-SAFE) Complete ---")

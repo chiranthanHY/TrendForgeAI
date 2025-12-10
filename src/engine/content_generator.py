@@ -170,7 +170,7 @@ if __name__ == "__main__":
             generated_df = pd.DataFrame(generated_data_records)
             from upload_to_sheets import upload_to_google_sheet
             print("\nAttempting to upload data to Google Sheets...")
-            upload_to_google_sheet(generated_df, "AI_Content_Optimizer_Data", "Generated_Marketing_Content")
+            upload_to_google_sheet(generated_df, "1gNHWjMghm4kTVbFSgC298LgWOWhgREY2wRRzTq-yHrk", "Generated_Marketing_Content")
             print("Successfully uploaded generated content to Google Sheets.")
         except ImportError:
             print("\nWarning: upload_to_sheets.py not found. Skipping Google Sheets upload.")
@@ -188,8 +188,8 @@ if __name__ == "__main__":
                     f":sparkles: New marketing content generated and uploaded! :page_with_curl:\n"
                     f"Product: *LumiCharge Pro*\n"
                     f"Generated {len(generated_data_records)} pieces of content (Tweet, Ad Copy, Social Post).\n"
-                    f"Check the Google Sheet here: https://docs.google.com/spreadsheets/d/1aAdsgz9AagAOxkRSoxdaIaJ6N76U8G1xb4mPC-_h5HE/edit?usp=sharing\n" # IMPORTANT: Replace with actual link
-                    f"Worksheet: AI_Content_Optimizer_Data\n"
+                    f"Check the Google Sheet here: https://docs.google.com/spreadsheets/d/1gNHWjMghm4kTVbFSgC298LgWOWhgREY2wRRzTq-yHrk/edit?usp=sharing\n"
+                    f"Worksheet: TrendForgeAI\n"
                     f"Check: Generated_Marketing_Content worksheet for the details."
                 )
                 # MODIFICATION HERE: Add username and icon_emoji

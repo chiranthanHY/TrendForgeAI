@@ -140,7 +140,7 @@ if __name__ == "__main__":
     youtube_videos_df = get_product_marketing_videos(YOUTUBE_PRODUCT_SEARCH_TERMS)
 
     if not youtube_videos_df.empty:
-        output_csv_path = "youtube_product_marketing_videos.csv"
+        output_csv_path = os.path.join("data", "youtube_product_marketing_videos.csv")
         youtube_videos_df.to_csv(output_csv_path, index=False)
         print(f"\nSuccessfully extracted {len(youtube_videos_df)} unique product-related YouTube videos.")
         print(f"Data saved to {output_csv_path}")
@@ -149,11 +149,11 @@ if __name__ == "__main__":
 
         # --- Integrate with Google Sheets ---
         try:
-            from upload_to_sheets import upload_to_google_sheet
+            from src.utils.upload_to_sheets import upload_to_google_sheet
             print("\nAttempting to upload data to Google Sheets...")
-            upload_to_google_sheet(youtube_videos_df, "AI_Content_Optimizer_Data", "YouTube_Product_Content")
+            upload_to_google_sheet(youtube_videos_df, "1gNHWjMghm4kTVbFSgC298LgWOWhgREY2wRRzTq-yHrk", "YouTube_Product_Content")
         except ImportError:
-            print("\nWarning: upload_to_sheets.py not found. Skipping Google Sheets upload.")
+            print("\nWarning: src.utils.upload_to_sheets not found. Skipping Google Sheets upload.")
         except Exception as e:
             print(f"\nError uploading to Google Sheets: {e}")
 
@@ -163,18 +163,15 @@ if __name__ == "__main__":
 
 
     # --- Slack Notification Integration ---
-    from slack_notifier import send_slack_notification
-
-    if send_slack_notification:
+    try:
+        from src.utils.slack_notifier import send_slack_notification
         slack_message = (
             f":sparkles: New YouTube product marketing videos found! :youtube:\n"
             f"Extracted {len(youtube_videos_df)} unique product-related YouTube videos.\n"
-            f"Check the Google Sheet here: https://docs.google.com/spreadsheets/d/1aAdsgz9AagAOxkRSoxdaIaJ6N76U8G1xb4mPC-_h5HE/edit?usp=sharing\n" # IMPORTANT: Replace with actual link
-            f"Worksheet: AI_Content_Optimizer_Data\n"
+            f"Check the Google Sheet here: https://docs.google.com/spreadsheets/d/1gNHWjMghm4kTVbFSgC298LgWOWhgREY2wRRzTq-yHrk/edit?usp=sharing\n"
+            f"Worksheet: TrendForgeAI\n"
             f"Check: YouTube_Product_Content worksheet for the details."
         )
         send_slack_notification(slack_message)
-        
-    else:
+    except ImportError:
         print("Slack notification function not available.")
-    

@@ -149,7 +149,7 @@ if __name__ == "__main__":
     # 1. Get Interest Over Time
     interest_over_time_df = get_interest_over_time(GOOGLE_TRENDS_KEYWORDS)
     if not interest_over_time_df.empty:
-        csv_path_iot = "google_trends_interest_over_time.csv"
+        csv_path_iot = os.path.join("data", "google_trends_interest_over_time.csv")
         interest_over_time_df.to_csv(csv_path_iot, index=False)
         print(f"\nSuccessfully extracted Interest Over Time data for {len(GOOGLE_TRENDS_KEYWORDS)} keywords.")
         print(f"Data saved to {csv_path_iot}")
@@ -158,11 +158,11 @@ if __name__ == "__main__":
 
         # Upload to Google Sheets
         try:
-            from upload_to_sheets import upload_to_google_sheet
+            from src.utils.upload_to_sheets import upload_to_google_sheet
             print("\nAttempting to upload Interest Over Time data to Google Sheets...")
-            upload_to_google_sheet(interest_over_time_df, "AI_Content_Optimizer_Data", "GoogleTrends_Interest_Over_Time")
+            upload_to_google_sheet(interest_over_time_df, "1gNHWjMghm4kTVbFSgC298LgWOWhgREY2wRRzTq-yHrk", "GoogleTrends_Interest_Over_Time")
         except ImportError:
-            print("\nWarning: upload_to_sheets.py not found. Skipping Google Sheets upload.")
+            print("\nWarning: src.utils.upload_to_sheets not found. Skipping Google Sheets upload.")
         except Exception as e:
             print(f"\nError uploading Interest Over Time to Google Sheets: {e}")
     else:
@@ -172,7 +172,7 @@ if __name__ == "__main__":
     related_queries_df, related_topics_df = get_related_queries_and_topics(GOOGLE_TRENDS_KEYWORDS)
 
     if not related_queries_df.empty:
-        csv_path_rq = "google_trends_related_queries.csv"
+        csv_path_rq = os.path.join("data", "google_trends_related_queries.csv")
         related_queries_df.to_csv(csv_path_rq, index=False)
         print(f"\nSuccessfully extracted Related Queries data for {len(GOOGLE_TRENDS_KEYWORDS)} keywords.")
         print(f"Data saved to {csv_path_rq}")
@@ -181,18 +181,18 @@ if __name__ == "__main__":
 
         # Upload to Google Sheets
         try:
-            from upload_to_sheets import upload_to_google_sheet
+            from src.utils.upload_to_sheets import upload_to_google_sheet
             print("\nAttempting to upload Related Queries data to Google Sheets...")
-            upload_to_google_sheet(related_queries_df, "AI_Content_Optimizer_Data", "GoogleTrends_Related_Queries")
+            upload_to_google_sheet(related_queries_df, "1gNHWjMghm4kTVbFSgC298LgWOWhgREY2wRRzTq-yHrk", "GoogleTrends_Related_Queries")
         except ImportError:
-            print("\nWarning: upload_to_sheets.py not found. Skipping Google Sheets upload.")
+            print("\nWarning: src.utils.upload_to_sheets not found. Skipping Google Sheets upload.")
         except Exception as e:
             print(f"\nError uploading Related Queries to Google Sheets: {e}")
     else:
         print("\nNo Related Queries data extracted.")
 
     if not related_topics_df.empty:
-        csv_path_rt = "google_trends_related_topics.csv"
+        csv_path_rt = os.path.join("data", "google_trends_related_topics.csv")
         related_topics_df.to_csv(csv_path_rt, index=False)
         print(f"\nSuccessfully extracted Related Topics data for {len(GOOGLE_TRENDS_KEYWORDS)} keywords.")
         print(f"Data saved to {csv_path_rt}")
@@ -201,11 +201,11 @@ if __name__ == "__main__":
 
         # Upload to Google Sheets
         try:
-            from upload_to_sheets import upload_to_google_sheet
+            from src.utils.upload_to_sheets import upload_to_google_sheet
             print("\nAttempting to upload Related Topics data to Google Sheets...")
-            upload_to_google_sheet(related_topics_df, "AI_Content_Optimizer_Data", "GoogleTrends_Related_Topics")
+            upload_to_google_sheet(related_topics_df, "1gNHWjMghm4kTVbFSgC298LgWOWhgREY2wRRzTq-yHrk", "GoogleTrends_Related_Topics")
         except ImportError:
-            print("\nWarning: upload_to_sheets.py not found. Skipping Google Sheets upload.")
+            print("\nWarning: src.utils.upload_to_sheets not found. Skipping Google Sheets upload.")
         except Exception as e:
             print(f"\nError uploading Related Topics to Google Sheets: {e}")
     else:
@@ -213,4 +213,7 @@ if __name__ == "__main__":
     
     print("\n--- Google Trends Data Extraction Complete ---")
 
-from slack_notifier import send_slack_notification
+    try:
+        from src.utils.slack_notifier import send_slack_notification
+    except ImportError:
+        pass
