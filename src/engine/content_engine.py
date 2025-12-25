@@ -35,7 +35,7 @@ DATASET = load_dataset()
 
 class ContentEngine:
     def __init__(self):
-        self.model = genai.GenerativeModel("models/gemini-2.0-flash")
+        self.model = genai.GenerativeModel("models/gemini-2.5-flash")
         
     def get_embedding(self, text):
         try:
