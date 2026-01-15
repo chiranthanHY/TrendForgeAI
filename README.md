@@ -929,3 +929,11 @@ SOFTWARE.
 [![Follow](https://img.shields.io/twitter/follow/TrendForgeAI?style=social)](https://twitter.com/TrendForgeAI)
 
 </div>
+
+
+https://github.com/user-attachments/assets/4931e5e6-4198-4c39-8079-4b20cfb9f301
+
+
+
+
+
